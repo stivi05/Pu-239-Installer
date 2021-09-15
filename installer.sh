@@ -186,7 +186,7 @@ rm -f "${USER_HOME}/.mytop"
 export DEBIAN_FRONTEND=noninteractive
 if [[ ${DBFLAVOR} == 'Percona' ]]; then
   apt-get install -yqq percona-server-server percona-toolkit
-  wget --no-check-certificate https://raw.githubusercontent.com/darkalchemy/Pu-239-Installer/master/config/mysql.cnf -O "${USER_HOME}/temp.conf"
+  wget --no-check-certificate https://raw.githubusercontent.com/stivi05/Pu-239-Installer/master/config/mysql.cnf -O "${USER_HOME}/temp.conf"
   if [ -d "/etc/mysql/percona-server.conf.d/" ]; then
     cat "${USER_HOME}/temp.conf" >> /etc/mysql/percona-server.conf.d/mysqld.cnf
   elif [ -d "/etc/mysql/mysql.conf.d/" ]; then
@@ -201,7 +201,7 @@ if [[ ${DBFLAVOR} == 'Percona' ]]; then
   mysql -uroot -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$ROOTPASSWORD';"
 elif [[ ${DBFLAVOR} == 'MariaDB' ]]; then
   apt-get install -yqq mariadb-server
-  wget --no-check-certificate https://raw.githubusercontent.com/darkalchemy/Pu-239-Installer/master/config/mysql.cnf -O "${USER_HOME}/temp.conf"
+  wget --no-check-certificate https://raw.githubusercontent.com/stivi05/Pu-239-Installer/master/config/mysql.cnf -O "${USER_HOME}/temp.conf"
   cat "${USER_HOME}/temp.conf" >>/etc/mysql/mariadb.cnf
   rm "${USER_HOME}/temp.conf"
   unset DEBIAN_FRONTEND
@@ -244,7 +244,7 @@ apt-get install -yqq nginx-extras
 mkdir -p /var/log/nginx
 chmod 755 /var/log/nginx
 chown -R www-data:www-data /var/log/nginx
-wget --no-check-certificate https://raw.githubusercontent.com/darkalchemy/Pu-239-Installer/master/config/tracker -O /etc/nginx/sites-available/tracker
+wget --no-check-certificate https://raw.githubusercontent.com/stivi05/Pu-239-Installer/master/config/tracker -O /etc/nginx/sites-available/tracker
 REPLACE="\/"
 TOREPLACE="/"
 PINSTALL="${PATHTOINSTALL//$TOREPLACE/$REPLACE}"
@@ -253,7 +253,7 @@ sed -i "s/PHPVERSION/${PHPVER}/" /etc/nginx/sites-available/tracker
 rm -f /etc/nginx/sites-enabled/default
 ln -sf /etc/nginx/sites-available/tracker /etc/nginx/sites-enabled/
 sed -i "s/localhost/${SITEHTTP}/" /etc/nginx/sites-available/tracker
-wget --no-check-certificate https://raw.githubusercontent.com/darkalchemy/Pu-239-Installer/master/config/nginx.conf -O /etc/nginx/nginx.conf
+wget --no-check-certificate https://raw.githubusercontent.com/stivi05/Pu-239-Installer/master/config/nginx.conf -O /etc/nginx/nginx.conf
 CORES=$(cat /proc/cpuinfo | grep -c processor)
 CORES=$((2 * CORES))
 sed -i "s/^worker_processes.*$/worker_processes $CORES;/" /etc/nginx/nginx.conf
@@ -323,8 +323,8 @@ echo -e "${GREEN}Installed PHP, PHP-FPM.$CLEAR"
 echo -e "${GREEN}Done.$CLEAR"
 echo -e "${YELLOW}Installing other, mostly needed, apps...\n\n$CLEAR"
 apt-get -yqq install unzip htop tmux rar unrar jpegoptim optipng pngquant gifsicle imagemagick
-wget --no-check-certificate https://raw.githubusercontent.com/darkalchemy/Pu-239-Installer/master/config/tmux.conf -O "${USER_HOME}/.tmux.conf"
-wget --no-check-certificate https://raw.githubusercontent.com/darkalchemy/Pu-239-Installer/master/config/bashrc -O "${USER_HOME}/.bashrc"
+wget --no-check-certificate https://raw.githubusercontent.com/stivi05/Pu-239-Installer/master/config/tmux.conf -O "${USER_HOME}/.tmux.conf"
+wget --no-check-certificate https://raw.githubusercontent.com/stivi05/Pu-239-Installer/master/config/bashrc -O "${USER_HOME}/.bashrc"
 sed -i -e "s/PHPVERSION/${PHPVER}/" "${USER_HOME}/.bashrc"
 cp /etc/nanorc "${USER_HOME}/.nanorc"
 sed -i -e 's/^# include/include/' "${USER_HOME}/.nanorc"
@@ -349,7 +349,7 @@ source /root/.bashrc
 
 clear
 if [ ! -f /etc/systemd/system/mysql.service.d/override.conf ]; then
-  wget --no-check-certificate https://raw.githubusercontent.com/darkalchemy/Pu-239-Installer/master/config/override.conf -O "${USER_HOME}/temp.conf"
+  wget --no-check-certificate https://raw.githubusercontent.com/stivi05/Pu-239-Installer/master/config/override.conf -O "${USER_HOME}/temp.conf"
   mkdir -p /etc/systemd/system/mysql.service.d/
   cat "${USER_HOME}/temp.conf" >>/etc/systemd/system/mysql.service.d/override.conf
   rm "${USER_HOME}/temp.conf"
@@ -357,14 +357,14 @@ fi
 if grep -q 'Maximum Socket Receive Buffer' /etc/sysctl.conf; then
   echo -e "${GREEN}/etc/sysctl.conf does not need editing.$CLEAR"
 else
-  wget --no-check-certificate https://raw.githubusercontent.com/darkalchemy/Pu-239-Installer/master/config/sysctl.conf -O "${USER_HOME}/temp.conf"
+  wget --no-check-certificate https://raw.githubusercontent.com/stivi05/Pu-239-Installer/master/config/sysctl.conf -O "${USER_HOME}/temp.conf"
   cat "${USER_HOME}/temp.conf" >>/etc/sysctl.conf
   rm "${USER_HOME}/temp.conf"
 fi
 if grep -q 'root soft     nproc          200000' /etc/security/limits.conf; then
   echo -e "${GREEN}/etc/security/limits.conf does not need editing.$CLEAR"
 else
-  wget --no-check-certificate https://raw.githubusercontent.com/darkalchemy/Pu-239-Installer/master/config/limits.conf -O "${USER_HOME}/temp.conf"
+  wget --no-check-certificate https://raw.githubusercontent.com/stivi05/Pu-239-Installer/master/config/limits.conf -O "${USER_HOME}/temp.conf"
   cat "${USER_HOME}/temp.conf" >>/etc/security/limits.conf
   rm "${USER_HOME}/temp.conf"
 fi
@@ -372,7 +372,7 @@ fi
 if grep -q 'session required pam_limits.so' /etc/pam.d/common-session; then
   echo -e "${GREEN}/etc/pam.d/common-session does not need editing.$CLEAR"
 else
-  wget --no-check-certificate https://raw.githubusercontent.com/darkalchemy/Pu-239-Installer/master/config/session.conf -O "${USER_HOME}/temp.conf"
+  wget --no-check-certificate https://raw.githubusercontent.com/stivi05/Pu-239-Installer/master/config/session.conf -O "${USER_HOME}/temp.conf"
   cat "${USER_HOME}/temp.conf" >>/etc/pam.d/common-session
   rm "${USER_HOME}/temp.conf"
 fi
@@ -401,7 +401,7 @@ echo -e "${GREEN}Installed Node.js.$CLEAR"
 echo -e "${GREEN}Done.$CLEAR"
 echo -e "${YELLOW}Now we download the Pu-239 Source Code into $PATHTOINSTALL...\n\n$CLEAR"
 rm -fr "${PATHTOINSTALL}"
-git clone https://github.com/darkalchemy/Pu-239.git "${PATHTOINSTALL}"
+git clone https://github.com/stivi05/Pu-239.git "${PATHTOINSTALL}"
 systemctl daemon-reload
 service mysql restart
 service php${PHPVER}-fpm restart
