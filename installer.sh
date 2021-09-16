@@ -149,7 +149,7 @@ fi
 
 clear
 echo -e "${YELLOW}Installing PPA's...\n\n$CLEAR"
-apt-get install -yqq software-properties-common curl gpg-agent build-essential python3 make perl gcc net-tools bsdmainutils util-linux
+apt-get install -yqq software-properties-common curl gnupg build-essential python3 make perl gcc net-tools bsdmainutils util-linux
 add-apt-repository -y ppa:nginx/stable
 add-apt-repository -y ppa:ondrej/php
 add-apt-repository -y ppa:pi-rho/dev
