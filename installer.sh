@@ -20,7 +20,7 @@ PHPVER='7.4'                    # only 7.4
 MEMCACHED=false                 # install memcached true/false
 REDIS=false                     # install redis-server true/false
 APCU=false                      # install APCu true/false
-DBFLAVOR='Percona'              # install either Percona or MariaDB
+DBFLAVOR='MariaDB'              # install either Percona or MariaDB
 GOACCESS=false                  # install goaccess access log analyzer
 CERTBOT=false                   # install certbot - this does not set up the ssl certificates - run manually, sudo certbot --nginx
 
